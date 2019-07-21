@@ -101,7 +101,7 @@ def multibot():
                     (by default we use you as a starting point).
                 """
             )
-            user_to_get_likers_of = bot.get_user_id_from_username("valen_ribeiro")
+            user_to_get_likers_of = bot.get_user_id_from_username("maskofshiva")
 
         current_user_id = user_to_get_likers_of
         total_stories = 0
