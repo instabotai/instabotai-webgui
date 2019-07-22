@@ -145,7 +145,7 @@ def multibot():
                     bot.logger.info("Sleeping and returning back to original user_id=%s"% current_user_id)
                     time.sleep(3 * random.random() + 1)
                     error_sleep += 1
-                    if error_sleep == 3:
+                    if error_sleep == 4:
                         print("sleeping for 1780 seconds")
                         time.sleep(1780 + random.random())
 
@@ -153,7 +153,7 @@ def multibot():
                 # If something went wrong - sleep long and start again
                 bot.logger.info(e)
                 error_sleeps += 1
-                if error_sleeps == 2:
+                if error_sleeps == 4:
                     print("sleeping for 1780 seconds")
                     time.sleep(1780 + random.random())
 
