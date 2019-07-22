@@ -62,9 +62,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Like Self Media Comments</a>
-            <a class="collapse-item" href="cards.html">Followers Images</a>
+            <a class="collapse-item" href="buttons.html">Like Comments</a>
           </div>
         </div>
       </li>
@@ -78,12 +76,15 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Watch Stories</h6>
-            <a class="collapse-item" href="utilities-color.html">Watch User Likers Stories</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
+            <a class="collapse-item" href="utilities-color.html">Watch Infinity Stories</a>
           </div>
         </div>
+      </li>
+      <!-- Nav Items - Support us -->
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.patreon.com/steffanjensen">
+          <i class="fas fa-fw fa-grin-hearts"></i>
+          <span>MultiBot</span></a>
       </li>
 
       <!-- Divider -->
@@ -91,41 +92,28 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Addons
+        USEFUL LINKS
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
+      <!-- Nav Items - Support us -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
+        <a class="nav-link" href="https://www.patreon.com/steffanjensen">
+          <i class="fas fa-fw fa-grin-hearts"></i>
+          <span>Support Us</span></a>
       </li>
 
-      <!-- Nav Item - Charts -->
+      <!-- Nav Item - Telegram -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
+        <a class="nav-link" href="https://web.telegram.org/#/im?p=@instabotai">
+          <i class="fab fa-fw fa-telegram"></i>
+          <span>Telegram</span></a>
       </li>
 
-      <!-- Nav Item - Tables -->
+      <!-- Nav Item - Github -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
+        <a class="nav-link" href="https://github.com/instabotai/">
+          <i class="fab fa-fw fa-github"></i>
+          <span>Github</span></a>
       </li>
 
       <!-- Divider -->
@@ -152,7 +140,7 @@
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
-
+<!--
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
@@ -164,7 +152,7 @@
               </div>
             </div>
           </form>
-
+         
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -172,8 +160,8 @@
             <li class="nav-item dropdown no-arrow d-sm-none">
               <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
+              </a> --!>
+              <!-- Dropdown - Messages --!> 
               <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                 <form class="form-inline mr-auto w-100 navbar-search">
                   <div class="input-group">
@@ -187,7 +175,7 @@
                 </form>
               </div>
             </li>
-
+            
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -294,7 +282,7 @@
             </li>
 
             <div class="topbar-divider d-none d-sm-block"></div>
-
+           
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -349,7 +337,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{ followers }}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <i class="fas fa-user-friends fa-2x text-gray-400"></i>
                     </div>
                   </div>
                 </div>
@@ -366,7 +354,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{ following }}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i class="fas fa-user-friends fa-2x text-gray-400"></i>
                     </div>
                   </div>
                 </div>
@@ -392,7 +380,7 @@
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard-list fa-2x text-gray-400"></i>
                     </div>
                   </div>
                 </div>
@@ -409,7 +397,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{ media_count }}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      <i class="fas fa-photo-video fa-2x text-gray-400"></i>
                     </div>
                   </div>
                 </div>
@@ -419,7 +407,7 @@
 
           <!-- Content Row -->
 
-              <!-- Start Bot Buttom --><div>
+              <!-- Start Bot Button --><div>
         <a class="btn btn-primary btn-icon-split btn-lg" href="/multibot"><span class="icon text-white-50">
                       <i class="fas fa-play"></i>
                     </span>
