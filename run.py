@@ -78,7 +78,6 @@ def like_self_media_comments():
 
 
 @app.route("/watch_stories")
-def watch_all_stories():
 def watch_infinity_stories():
     return render_template("watch_infinity_stories.html", username=username,
                            profile_pic=profile_pic, followers=followers,
