@@ -1,6 +1,14 @@
 # Instabot WebGui (In-Development)
-This version does only work with a few functions, i have only build on this for 24 hours. 
-I will make it work better over the next few days. 
+Instabot Webgui is a bot which can watch stories by username and like all comments, it also has multibot where it runs more than one bot on different threads. More functions will come over the next days. It will end up being implemented to instabotai
+https://github.com/instabotai/instabotai/
+
+![image](https://i.imgur.com/33MdNvS.png)
+
+## Features
+* Watch Infinity Stories by user
+* Like all image comments
+* Multibot
+* GUI
 
 ### To Install:
 git clone https://github.com/instabotai/webgui.git
@@ -11,5 +19,3 @@ pip install -r requirements.txt
 python run.py -u yourusername -p yourpassword
 
 Works on all browsers without extensions!
-
-![image](https://i.imgur.com/33MdNvS.png)
