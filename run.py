@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from instabot import Bot
 import argparse
 import time
@@ -77,8 +77,9 @@ def like_self_media_comments():
                        following=following, media_count=media_count);
 
 
-@app.route("/watch_stories")
+@app.route("/watch_stories", methods=['GET', 'POST'])
 def watch_all_stories():
+    watch_username = request.form['watch_username']
     if len(sys.argv) >= 10:
         bot.logger.info(
             """
@@ -89,12 +90,12 @@ def watch_all_stories():
     else:
         bot.logger.info(
             """
-                Going to get your likers and watch their stories (and stories of their likers too).
+                Going to get """ + watch_username + """ likers and watch their stories (and stories of their likers too).
                 You can specify username of another user to start (by default we use you as a starting point).
             """
         )
-        user_to_get_likers_of = bot.user_id
-
+        user_to_get_likers_of = bot.get_user_id_from_username(watch_username)
+    
     current_user_id = user_to_get_likers_of
     while True:
         try:
