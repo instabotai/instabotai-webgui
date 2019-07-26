@@ -20,16 +20,18 @@
 
 </head>
 
+
+
 <body id="page-top">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <!--Navigation bar-->
+<!--Navigation bar-->
 <div id="nav-placeholder">
 
 </div>
+
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -45,7 +47,7 @@
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
-<!--
+
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
@@ -226,7 +228,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Multibot</h1>
+            <h1 class="h3 mb-0 text-gray-800">Like users followers</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
           <!-- Content Row -->
@@ -287,12 +289,22 @@
 
           <!-- Content Row -->
 
-              <!-- Start Bot Button --><div>
-        <a class="btn btn-primary btn-icon-split btn-lg" href="/start_multibot"><span class="icon text-white-50">
+              <!-- Start Bot Button --><div>Like Hashtags Images
+              <p></p>
+              <b>Username:</b>
+              <form method="POST" action="/start_like_hashtags">
+              <div class="form-group">
+              <input type="text" value="dog" name="hashtag">
+
+              </div>
+   
+                                  <i class="btn btn-primary btn-icon-split btn-lg">
+<span class="icon text-white-50">
                       <i class="fas fa-play"></i>
-                    </span>
-                    <span class="text">Start Bot</span>
-        </a></div><br>
+        <span class="text"><input style="background-color: Transparent; border: 0px; font-weight: 700; color: white; font-size: 25px;" type="submit" value="Start Bot">
+     </span></i>
+      </form></div>
+      <br>
           <div class="row">
 
             <!-- Area Chart -->
@@ -378,12 +390,15 @@
 
   <!-- Page custom scripts -->
   <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js"') }}"></script>
+  <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js') }}"></script>
+
 <script>
 $(function(){
   $("#nav-placeholder").load("{{ url_for('static', filename='menu.html') }}");
 });
 </script>
+
+
 </body>
 
 </html>

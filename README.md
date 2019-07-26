@@ -8,6 +8,9 @@ https://github.com/instabotai/instabotai/
 
 ## Features
 * Watch Infinity Stories by user
+* Like Users Following Images
+* Like Users Followers Images
+* Like Hashtag Images
 * Like all image comments
 * Multibot
 * GUI

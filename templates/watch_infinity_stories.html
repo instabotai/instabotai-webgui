@@ -20,110 +20,18 @@
 
 </head>
 
+
+
 <body id="page-top">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<!--Navigation bar-->
+<div id="nav-placeholder">
 
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-15">
-          <i class="fab fa-instagram"></i>
-        </div>
-        <div class="sidebar-brand-text mx-1">Instabot<sup>AI</sup></div>
-      </a>
+</div>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Bots
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fa fa-heart" aria-hidden="true"></i>
-          <span>Like</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/like_comments">Like Comments</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-video"></i>
-          <span>Stories</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/watch_infinity_stories">Watch Infinity Stories</a>
-          </div>
-        </div>
-      </li>
-      <!-- Nav Items - Support us -->
-      <li class="nav-item">
-        <a class="nav-link" href="/multibot">
-          <i class="fas fa-fw fa-grin-hearts"></i>
-          <span>MultiBot</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        USEFUL LINKS
-      </div>
-
-      <!-- Nav Items - Support us -->
-      <li class="nav-item">
-        <a class="nav-link" href="https://www.patreon.com/steffanjensen">
-          <i class="fas fa-fw fa-grin-hearts"></i>
-          <span>Support Us</span></a>
-      </li>
-
-      <!-- Nav Item - Telegram -->
-      <li class="nav-item">
-        <a class="nav-link" href="https://web.telegram.org/#/im?p=@instabotai">
-          <i class="fab fa-fw fa-telegram"></i>
-          <span>Telegram</span></a>
-      </li>
-
-      <!-- Nav Item - Github -->
-      <li class="nav-item">
-        <a class="nav-link" href="https://github.com/instabotai/">
-          <i class="fab fa-fw fa-github"></i>
-          <span>Github</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -387,6 +295,8 @@
               <form method="POST" action="/watch_stories">
               <div class="form-group">
               <input type="text" value="{{ username }}" name="watch_username">
+              <b>Sleep Between Actions: </b>
+              <input type="text" value="0" name="timer">
               </div>
    
                                   <i class="btn btn-primary btn-icon-split btn-lg">
@@ -394,7 +304,8 @@
                       <i class="fas fa-play"></i>
         <span class="text"><input style="background-color: Transparent; border: 0px; font-weight: 700; color: white; font-size: 25px;" type="submit" value="Start Bot">
      </span></i>
-      </form></div><br>
+      </form></div>
+      <br>
           <div class="row">
 
             <!-- Area Chart -->
@@ -480,7 +391,14 @@
 
   <!-- Page custom scripts -->
   <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js"') }}></script>
+  <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js') }}"></script>
+
+<script>
+$(function(){
+  $("#nav-placeholder").load("{{ url_for('static', filename='menu.html') }}");
+});
+</script>
+
 
 </body>
 

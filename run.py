@@ -52,6 +52,25 @@ def multibots():
                            profile_pic=profile_pic, followers=followers,
                            following=following, media_count=media_count);
 
+@app.route("/like_followers")
+def like_followers():
+    return render_template("like_followers.html", username=username,
+                           profile_pic=profile_pic, followers=followers,
+                           following=following, media_count=media_count);
+
+@app.route("/like_following")
+def like_following():
+    return render_template("like_following.html", username=username,
+                           profile_pic=profile_pic, followers=followers,
+                           following=following, media_count=media_count);
+
+@app.route("/like_hashtags")
+def like_hashtags():
+    return render_template("like_hashtags.html", username=username,
+                           profile_pic=profile_pic, followers=followers,
+                           following=following, media_count=media_count);
+
+
 @app.route("/like_self_media_comments")
 def like_self_media_comments():
     x = 0
@@ -76,10 +95,25 @@ def like_self_media_comments():
                        profile_pic=profile_pic, followers=followers,
                        following=following, media_count=media_count);
 
+@app.route("/start_like_following", methods=['GET', 'POST'])
+def start_like_following():
+    following_username = request.form['following_username']
+    bot.like_following(following_username)
+
+@app.route("/start_like_followers", methods=['GET', 'POST'])
+def start_like_followers():
+    followers_username = request.form['followers_username']
+    bot.like_followers(followers_username)
+
+@app.route("/start_like_hashtags", methods=['GET', 'POST'])
+def start_like_hashtag():
+    hashtag = request.form['hashtag']
+    bot.like_following(hashtag)
 
 @app.route("/watch_stories", methods=['GET', 'POST'])
 def watch_all_stories():
     watch_username = request.form['watch_username']
+    timer = request.form['timer']
     if len(sys.argv) >= 10:
         bot.logger.info(
             """
@@ -99,6 +133,8 @@ def watch_all_stories():
     current_user_id = user_to_get_likers_of
     while True:
         try:
+            bot.logger.info("Sleeping " + timer + " Seconds between actions")
+            time.sleep(int(timer))
             # GET USER FEED
             if not bot.api.get_user_feed(current_user_id):
                 print("Can't get feed of user_id=%s" % current_user_id)
