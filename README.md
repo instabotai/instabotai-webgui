@@ -4,7 +4,7 @@ Instabot Webgui is a bot which can watch stories by username and like all commen
 It will end up being implemented to InstabotAI
 https://github.com/instabotai/instabotai/
 
-![image](https://i.imgur.com/33MdNvS.png)
+![image](https://i.imgur.com/yv9eAyv.png)
 
 ## Features
 * Watch Infinity Stories by user
