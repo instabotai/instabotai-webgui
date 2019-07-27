@@ -23,4 +23,6 @@ pip install -r requirements.txt
 ### Run: 
 python run.py -u yourusername -p yourpassword
 
+Open http://127.0.0.1:8000/ in your browser
+
 Works on all browsers without extensions!
