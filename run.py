@@ -129,7 +129,7 @@ def watch_all_stories():
             """
         )
         user_to_get_likers_of = bot.get_user_id_from_username(watch_username)
-    
+
     current_user_id = user_to_get_likers_of
     while True:
         try:
@@ -171,6 +171,61 @@ def watch_all_stories():
 
 @app.route("/start_multibot")
 def multibot():
+    def watch_all_stories():
+        watch_username = str(args.u)
+        if len(sys.argv) >= 10:
+            bot.logger.info(
+                """
+                    Going to get '%s' likers and watch their stories (and stories of their likers too).
+                """ % (sys.argv[1])
+            )
+            user_to_get_likers_of = bot.convert_to_user_id(sys.argv[1])
+        else:
+            bot.logger.info(
+                """
+                    Going to get """ + watch_username + """ likers and watch their stories (and stories of their likers too).
+                    You can specify username of another user to start (by default we use you as a starting point).
+                """
+            )
+            user_to_get_likers_of = bot.get_user_id_from_username(watch_username)
+
+        current_user_id = user_to_get_likers_of
+        while True:
+            try:
+                # GET USER FEED
+                if not bot.api.get_user_feed(current_user_id):
+                    print("Can't get feed of user_id=%s" % current_user_id)
+
+                # GET MEDIA LIKERS
+                user_media = random.choice(bot.api.last_json["items"])
+                if not bot.api.get_media_likers(media_id=user_media["pk"]):
+                    bot.logger.info(
+                        "Can't get media likers of media_id='%s' by user_id='%s'" % (user_media["pk"], current_user_id)
+                    )
+
+                likers = bot.api.last_json["users"]
+                liker_ids = [
+                    str(u["pk"]) for u in likers if not u["is_private"] and "latest_reel_media" in u
+                ][:20]
+
+                # WATCH USERS STORIES
+                if bot.watch_users_reels(liker_ids):
+                    bot.logger.info("Total stories viewed: %d" % bot.total["stories_viewed"])
+
+                # CHOOSE RANDOM LIKER TO GRAB HIS LIKERS AND REPEAT
+                current_user_id = random.choice(liker_ids)
+
+                if random.random() < 0.05:
+                    current_user_id = user_to_get_likers_of
+                    bot.logger.info("Sleeping and returning back to original user_id=%s" % current_user_id)
+                    time.sleep(90 * random.random() + 60)
+
+            except Exception as e:
+                # If something went wrong - sleep long and start again
+                bot.logger.info(e)
+                current_user_id = user_to_get_likers_of
+                time.sleep(240 * random.random() + 60)
+
     def reply_pending_messages():
         reply_pending = 0
         while True:
@@ -212,13 +267,13 @@ def multibot():
                     x = 0
 
 
-    thread1 = threading.Timer(7.0, watch_stories)
+    thread1 = threading.Timer(7.0, watch_all_stories)
     thread2 = threading.Timer(13.0, reply_pending_messages)
     thread3 = threading.Timer(2.0, like_self_media_comments)
     thread1.start()
     thread2.start()
     thread3.start()
-    return render_template("index.html", username=username,
+    return render_template("multibot.html", username=username,
                        profile_pic=profile_pic, followers=followers,
                        following=following, media_count=media_count);
 
