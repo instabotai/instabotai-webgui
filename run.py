@@ -109,6 +109,9 @@ def start_like_followers():
 def start_like_hashtag():
     hashtag = request.form['hashtag']
     bot.like_following(hashtag)
+    return render_template("like_hashtags.html", username=username,
+                       profile_pic=profile_pic, followers=followers,
+                       following=following, media_count=media_count);
 
 @app.route("/watch_stories", methods=['GET', 'POST'])
 def watch_all_stories():
