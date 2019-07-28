@@ -70,6 +70,29 @@ def like_hashtags():
                            profile_pic=profile_pic, followers=followers,
                            following=following, media_count=media_count);
 
+@app.route("/follow_followers")
+def follow_followers():
+    return render_template("follow_followers.html", username=username,
+                           profile_pic=profile_pic, followers=followers,
+                           following=following, media_count=media_count);
+
+@app.route("/follow_following")
+def follow_following():
+    return render_template("follow_following.html", username=username,
+                           profile_pic=profile_pic, followers=followers,
+                           following=following, media_count=media_count);
+
+@app.route("/comment_followers")
+def comment_followers():
+    return render_template("comment_followers.html", username=username,
+                           profile_pic=profile_pic, followers=followers,
+                           following=following, media_count=media_count);
+
+@app.route("/comment_following")
+def comment_following():
+    return render_template("comment_following.html", username=username,
+                           profile_pic=profile_pic, followers=followers,
+                           following=following, media_count=media_count);
 
 @app.route("/like_self_media_comments")
 def like_self_media_comments():
@@ -99,11 +122,67 @@ def like_self_media_comments():
 def start_like_following():
     following_username = request.form['following_username']
     bot.like_following(following_username)
+    return render_template("like_following.html", username=username,
+                       profile_pic=profile_pic, followers=followers,
+                       following=following, media_count=media_count);
 
 @app.route("/start_like_followers", methods=['GET', 'POST'])
 def start_like_followers():
     followers_username = request.form['followers_username']
     bot.like_followers(followers_username)
+    return render_template("like_followers.html", username=username,
+                       profile_pic=profile_pic, followers=followers,
+                       following=following, media_count=media_count);
+
+@app.route("/start_follow_followers", methods=['GET', 'POST'])
+def start_follow_followers():
+    followers_username = request.form['followers_username']
+    bot.follow_followers(followers_username)
+    return render_template("follow_followers.html", username=username,
+                       profile_pic=profile_pic, followers=followers,
+                       following=following, media_count=media_count);
+
+@app.route("/start_follow_following", methods=['GET', 'POST'])
+def start_follow_following():
+    followers_username = request.form['followers_username']
+    bot.follow_following(followers_username)
+    return render_template("follow_followings.html", username=username,
+                       profile_pic=profile_pic, followers=followers,
+                       following=following, media_count=media_count);
+
+@app.route("/start_comment_followers", methods=['GET', 'POST'])
+def start_comment_followers():
+    followers_username = request.form['followers_username']
+    comment = request.form['comment']
+    user_id = bot.get_user_id_from_username(followers_username)
+    total_followings = bot.api.get_total_followers(user_id)
+    for user in bot.api.last_json["users"]:
+        userid = bot.get_user_id_from_username(user["username"])
+        for media_id in bot.get_last_user_medias(user_id, 2):
+            print(bot.api.comment(media_id, comment))
+            print("Commented " + bot.get_link_from_media_id(media_id))
+            time.sleep(20)
+
+    return render_template("comment_followers.html", username=username,
+                        profile_pic=profile_pic, followers=followers,
+                        following=following, media_count=media_count);
+
+@app.route("/start_comment_following", methods=['GET', 'POST'])
+def start_comment_following():
+    followers_username = request.form['followers_username']
+    comment = request.form['comment']
+    user_id = bot.get_user_id_from_username(followers_username)
+    total_followings = bot.api.get_total_followings(user_id)
+    for user in bot.api.last_json["users"]:
+        userid = bot.get_user_id_from_username(user["username"])
+        for media_id in bot.get_last_user_medias(user_id, 2):
+            print(bot.api.comment(media_id, comment))
+            print("Commented " + bot.get_link_from_media_id(media_id))
+            time.sleep(20)
+
+    return render_template("comment_following.html", username=username,
+                       profile_pic=profile_pic, followers=followers,
+                       following=following, media_count=media_count);
 
 @app.route("/start_like_hashtags", methods=['GET', 'POST'])
 def start_like_hashtag():

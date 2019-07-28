@@ -228,7 +228,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Like users followers</h1>
+            <h1 class="h3 mb-0 text-gray-800">Comment user Followings</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
           <!-- Content Row -->
@@ -289,12 +289,14 @@
 
           <!-- Content Row -->
 
-              <!-- Start Bot Button --><div>Like Hashtags Images
+              <!-- Start Bot Button --><div>Comment User Following
               <p></p>
-              <b>Hashtag:</b>
-              <form method="POST" action="/start_like_hashtags">
+              <b>Username:</b>
+              <form method="POST" action="/start_comment_following">
               <div class="form-group">
-              <input type="text" value="dog" name="hashtag">
+              <input type="text" value="{{ username }}" name="followers_username">
+              <b>Comment</b>
+              <input type="text" value="follow me @{{ username }}" name="comment">
 
               </div>
    
