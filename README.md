@@ -7,6 +7,10 @@ https://github.com/instabotai/instabotai/
 ![image](https://i.imgur.com/yv9eAyv.png)
 
 ## Features
+* Follow User Followers
+* Follow User Following
+* Comment User Followers
+* Comment User Following
 * Watch Infinity Stories by user
 * Like Users Following Images
 * Like Users Followers Images
