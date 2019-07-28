@@ -158,10 +158,11 @@ def start_comment_followers():
     total_followings = bot.api.get_total_followers(user_id)
     for user in bot.api.last_json["users"]:
         userid = bot.get_user_id_from_username(user["username"])
-        for media_id in bot.get_last_user_medias(user_id, 2):
-            print(bot.api.comment(media_id, comment))
-            print("Commented " + bot.get_link_from_media_id(media_id))
-            time.sleep(20)
+        for user_id in userid:
+            for media_id in bot.get_last_user_medias(user_id, 2):
+                print(bot.api.comment(media_id, comment))
+                print("Commented " + bot.get_link_from_media_id(media_id))
+                time.sleep(20)
 
     return render_template("comment_followers.html", username=username,
                         profile_pic=profile_pic, followers=followers,
@@ -175,10 +176,11 @@ def start_comment_following():
     total_followings = bot.api.get_total_followings(user_id)
     for user in bot.api.last_json["users"]:
         userid = bot.get_user_id_from_username(user["username"])
-        for media_id in bot.get_last_user_medias(user_id, 2):
-            print(bot.api.comment(media_id, comment))
-            print("Commented " + bot.get_link_from_media_id(media_id))
-            time.sleep(20)
+        for user_id in userid:
+            for media_id in bot.get_last_user_medias(user_id, 2):
+                print(bot.api.comment(media_id, comment))
+                print("Commented " + bot.get_link_from_media_id(media_id))
+                time.sleep(20)
 
     return render_template("comment_following.html", username=username,
                        profile_pic=profile_pic, followers=followers,
