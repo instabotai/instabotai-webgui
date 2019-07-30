@@ -1,4 +1,4 @@
-# Instabot WebGui (In-Development)
+# Instabot WebGui with AI (In-Development)
 Instabot Webgui is a bot which can watch stories by username and like all comments, it also has multibot where it runs more than one bot on different threads. More functions will come over the next days. 
 
 It will end up being implemented to InstabotAI
@@ -12,8 +12,8 @@ https://github.com/instabotai/instabotai/
 * Comment User Followers
 * Comment User Following
 * Watch Infinity Stories by user
-* Like Users Following Images
-* Like Users Followers Images
+* Like Users Following Images with AI
+* Like Users Followers Images with AI
 * Like Hashtag Images
 * Like all image comments
 * Multibot
