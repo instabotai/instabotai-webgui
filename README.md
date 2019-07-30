@@ -1,5 +1,5 @@
 # InstabotAI WebGui (In-Development)
-InstabotAI Webgui is a bot with Face detection, it will for example like an image of a user if a face is detected.
+InstabotAI Webgui is a bot with face detection, it will for example like an image of a user if a face is detected.
 
 It will end up being implemented to InstabotAI
 https://github.com/instabotai/instabotai/
