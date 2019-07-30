@@ -1,2 +1,5 @@
 instabot
 flask
+tensorflow
+mtcnn
+opencv-python

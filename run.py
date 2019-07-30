@@ -6,6 +6,11 @@ import time
 import threading
 import random
 import sys
+from mtcnn.mtcnn import MTCNN
+import cv2
+import instagram_scraper
+import json
+import random
 
 parser = argparse.ArgumentParser(add_help=True)
 parser.add_argument('-u', type=str, help="username")
@@ -64,6 +69,18 @@ def like_following():
                            profile_pic=profile_pic, followers=followers,
                            following=following, media_count=media_count);
 
+@app.route("/like_followingai")
+def like_followingai():
+    return render_template("like_followingai.html", username=username,
+                           profile_pic=profile_pic, followers=followers,
+                           following=following, media_count=media_count);
+
+@app.route("/like_followersai")
+def like_followersai():
+    return render_template("like_followersai.html", username=username,
+                           profile_pic=profile_pic, followers=followers,
+                           following=following, media_count=media_count);
+
 @app.route("/like_hashtags")
 def like_hashtags():
     return render_template("like_hashtags.html", username=username,
@@ -118,11 +135,100 @@ def like_self_media_comments():
                        profile_pic=profile_pic, followers=followers,
                        following=following, media_count=media_count);
 
+@app.route("/start_like_followingai", methods=['GET', 'POST'])
+def start_like_followingai():
+    number_last_photos = 1
+    following_username = request.form['following_username']
+    time_sleep = request.form['time_sleep']
+    user_id = bot.get_user_id_from_username(following_username)
+    following = bot.get_user_following(user_id)
+    for user in following:
+        pusername = bot.get_username_from_user_id(user)
+        imgScraper = instagram_scraper.InstagramScraper(usernames=[pusername],
+                                            maximum=number_last_photos,
+                                            media_metadata=True, latest=True,
+                                            media_types=['image'])
+        imgScraper.scrape()
+
+    # Open user json and if face is detected it will do command
+        try:
+            with open(pusername + '/' + pusername + '.json', 'r') as j:
+                json_data = json.load(j)
+                display_url = (json_data["GraphImages"][0]["display_url"])
+                media_id = (json_data["GraphImages"][0]["id"])
+                profile = (json_data["GraphImages"][0]["username"])
+                imgUrl = display_url.split('?')[0].split('/')[-1]
+                instapath = pusername + '/' + imgUrl
+                img = cv2.imread(instapath)
+                detector = MTCNN()
+                detect = detector.detect_faces(img)
+
+                if not detect:
+                    print("no face detected")
+                else:
+                #    media_id = bot.get_media(display_url)
+                    bot.api.like(media_id)
+                    print("liked " + display_url + " by" + profile)
+                    print("=" * 30)
+                    time_sleep = int(time_sleep)
+                    time.sleep(int(time_sleep))
+        except:
+            pass
+
+    return render_template("like_followingai.html", username=username,
+                       profile_pic=profile_pic, followers=followers,
+                       following=following, media_count=media_count);
+
 @app.route("/start_like_following", methods=['GET', 'POST'])
 def start_like_following():
     following_username = request.form['following_username']
     bot.like_following(following_username)
     return render_template("like_following.html", username=username,
+                       profile_pic=profile_pic, followers=followers,
+                       following=following, media_count=media_count);
+
+@app.route("/start_like_followersai", methods=['GET', 'POST'])
+def start_like_followersai():
+    number_last_photos = 1
+    following_username = request.form['following_username']
+    time_sleep = request.form['time_sleep']
+
+    user_id = bot.get_user_id_from_username(following_username)
+    following = bot.get_user_followers(user_id)
+    for user in following:
+        pusername = bot.get_username_from_user_id(user)
+        imgScraper = instagram_scraper.InstagramScraper(usernames=[pusername],
+                                            maximum=number_last_photos,
+                                            media_metadata=True, latest=True,
+                                            media_types=['image'])
+        imgScraper.scrape()
+
+    # Open user json and if face is detected it will do command
+        try:
+            with open(pusername + '/' + pusername + '.json', 'r') as j:
+                json_data = json.load(j)
+                display_url = (json_data["GraphImages"][0]["display_url"])
+                media_id = (json_data["GraphImages"][0]["id"])
+                profile = (json_data["GraphImages"][0]["username"])
+                imgUrl = display_url.split('?')[0].split('/')[-1]
+                instapath = pusername + '/' + imgUrl
+                img = cv2.imread(instapath)
+                detector = MTCNN()
+                detect = detector.detect_faces(img)
+
+                if not detect:
+                    print("no face detected")
+                else:
+                    bot.api.like(media_id)
+                    print("liked " + display_url + " by" + profile)
+                    print("=" * 30)
+                    time_sleep = int(time_sleep)
+                    time.sleep(time_sleep)
+
+        except:
+            pass
+
+    return render_template("like_followersai.html", username=username,
                        profile_pic=profile_pic, followers=followers,
                        following=following, media_count=media_count);
 
