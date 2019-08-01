@@ -1,5 +1,5 @@
 instabot
 flask
-tensorflow
+tensorflow==2.0.0-beta1
 mtcnn
 opencv-python
