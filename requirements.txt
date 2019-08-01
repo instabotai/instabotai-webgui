@@ -1,5 +1,6 @@
 instabot
 flask
-tensorflow==2.0.0-beta1
+tensorflow==1.13.1
 mtcnn
 opencv-python
+instagram-scraper
