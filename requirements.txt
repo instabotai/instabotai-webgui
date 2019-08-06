@@ -1,6 +1,6 @@
 instabot
 flask
-tensorflow==1.13.1
+https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl
 mtcnn
 opencv-python
 instagram-scraper
