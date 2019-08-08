@@ -15,8 +15,8 @@ RUN apt-get install -y python3-pip
 # Install any needed packages specified in requirements.txt
 # RUN pip3 install -U instabotai
 
-# Make port 80 available to the world outside this container
+# Make port 8000 available to the world outside this container
 EXPOSE 8000
 
 # Run app.py when the container launches
-# ENTRYPOINT ["python3", "instabotai/app.py"]
+ ENTRYPOINT ["python3", "run.py"]
