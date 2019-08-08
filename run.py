@@ -6,11 +6,10 @@ import time
 import threading
 import random
 import sys
-from mtcnn.mtcnn import MTCNN
-import cv2
 import instagram_scraper
 import json
 import random
+import face_recognition
 
 parser = argparse.ArgumentParser(add_help=True)
 parser.add_argument('-u', type=str, help="username")
@@ -159,11 +158,10 @@ def start_like_followingai():
                 profile = (json_data["GraphImages"][0]["username"])
                 imgUrl = display_url.split('?')[0].split('/')[-1]
                 instapath = pusername + '/' + imgUrl
-                img = cv2.imread(instapath)
-                detector = MTCNN()
-                detect = detector.detect_faces(img)
+                img = face_recognition.load_image_file(instapath)
+                face_locations = face_recognition.face_locations(img)
 
-                if not detect:
+                if not face_locations:
                     print("no face detected")
                 else:
                 #    media_id = bot.get_media(display_url)
@@ -212,11 +210,10 @@ def start_like_followersai():
                 profile = (json_data["GraphImages"][0]["username"])
                 imgUrl = display_url.split('?')[0].split('/')[-1]
                 instapath = pusername + '/' + imgUrl
-                img = cv2.imread(instapath)
-                detector = MTCNN()
-                detect = detector.detect_faces(img)
+                img = face_recognition.load_image_file(instapath)
+                face_locations = face_recognition.face_locations(img)
 
-                if not detect:
+                if not face_locations:
                     print("no face detected")
                 else:
                     bot.api.like(media_id)
