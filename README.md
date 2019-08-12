@@ -19,14 +19,27 @@ https://github.com/instabotai/instabotai/
 * Multibot
 * GUI
 
-### To Install:
+## To Install:
 git clone https://github.com/instabotai/webgui.git
 
 pip install -r requirements.txt
 
-### Run: 
+## Run: 
 python run.py -u yourusername -p yourpassword
 
 Open http://127.0.0.1:8000/ in your browser
 
 Works on all browsers without extensions!
+
+## For Tensorflow install issues (Python 3.7) install:
+
+## Windows:
+https://www.tensorflow.org/install/source_windows
+(Opened a thread here for the devs to include tensorflow for 3.7 on windows)
+https://github.com/tensorflow/tensorflow/issues/31431
+
+## Linux
+
+### Arch:
+Pacman -S tensorflow
+
