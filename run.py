@@ -20,7 +20,7 @@ except NameError:
 
 COOKIES = {}
 app = Flask(__name__)
-bot = Bot()
+bot = Bot(do_logout=True)
 
 
 parser = argparse.ArgumentParser(add_help=True)
@@ -229,6 +229,7 @@ def like_self_media_comments():
 
 @app.route("/start_like_followingai", methods=['GET', 'POST'])
 def start_like_followingai():
+    x = 0
     bot.api.get_self_username_info()
     profile_pic = bot.api.last_json["user"]["profile_pic_url"]
     followers = bot.api.last_json["user"]["follower_count"]
@@ -266,7 +267,9 @@ def start_like_followingai():
                 else:
                 #    media_id = bot.get_media(display_url)
                     bot.api.like(media_id)
-                    print("liked " + display_url + " by" + profile)
+                    print("liked " + display_url + " by " + profile)
+                    x += 1
+                    print("liked " + str(x) + " images")
                     print("=" * 30)
                     time_sleep = int(time_sleep)
                     time.sleep(int(time_sleep))
@@ -293,6 +296,7 @@ def start_like_following():
 
 @app.route("/start_like_followersai", methods=['GET', 'POST'])
 def start_like_followersai():
+    x = 0
     bot.api.get_self_username_info()
     profile_pic = bot.api.last_json["user"]["profile_pic_url"]
     followers = bot.api.last_json["user"]["follower_count"]
@@ -331,6 +335,8 @@ def start_like_followersai():
                 else:
                     bot.api.like(media_id)
                     print("liked " + display_url + " by" + profile)
+                    x += 1
+                    print("liked " + str(x) + " images")
                     print("=" * 30)
                     time_sleep = int(time_sleep)
                     time.sleep(time_sleep)

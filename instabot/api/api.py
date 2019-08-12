@@ -132,6 +132,7 @@ class API(object):
             self.logger.info("Logged-in successfully as '{}' using the cookie!".format(self.username))
             return True
         except Exception as e:
+            print(e)
             print("The cookie is not found, but don't worry `instabot`"
                   " will create it for you using your login details.")
             return self.login(username=username, password=password, use_cookie=False)
@@ -283,10 +284,18 @@ class API(object):
                 return False
         else:
             if response.status_code != 404 and response.status_code != "404":
+                if response.status_code == 403:
+                    self.logger.info("Your cookie is blocked: Going to relogin!")
+                    return False
                 self.logger.error("Request returns {} error!".format(response.status_code))
             try:
                 response_data = json.loads(response.text)
                 if "feedback_required" in str(response_data.get('message')):
+                    if response_data.get('feedback_title') == 'Action Blocked':
+                        self.logger.error("This action was blocked. Going to sleep 10 seconds and relogin!")
+                        time.sleep(10)
+                        self.logout()
+                        return self.login(username=self.username, password=self.password, proxy=self.proxy)
                     self.logger.error("ATTENTION!: `feedback_required`" + str(response_data.get('feedback_message')))
                     return "feedback_required"
             except ValueError:

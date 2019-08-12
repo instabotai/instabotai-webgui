@@ -293,14 +293,13 @@ class Bot(object):
         return next((p.version for p in pkg_resources.working_set if p.project_name.lower() == 'instabot'), "No match")
 
     def logout(self, *args, **kwargs):
-        save_checkpoint(self)
         self.api.logout()
         self.print_counters()
 
     def login(self, **args):
         if self.proxy:
             args['proxy'] = self.proxy
-        if self.do_logout or not self.api.check_cookie(proxy=self.proxy, username=args['username'], password=args['password']):
+        if self.do_logout or not self.api.check_cookie(**args):
             if not self.api.login(**args):
                 return False
             elif self.do_logout:
@@ -319,6 +318,7 @@ class Bot(object):
             self.total, self.blocked_actions, self.api.total_requests, self.start_time = storage
 
     def print_counters(self):
+        save_checkpoint(self)
         self.logger.info("Bot stopped. "
                          "Worked: %s", datetime.datetime.now() - self.start_time)
         for key, val in self.total.items():
