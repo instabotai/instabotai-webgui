@@ -35,7 +35,9 @@ Works on all browsers without extensions!
 
 ## Windows:
 https://www.tensorflow.org/install/source_windows
+
 (Opened a thread here for the devs to include tensorflow for 3.7 on windows)
+
 https://github.com/tensorflow/tensorflow/issues/31431
 
 ## Linux
