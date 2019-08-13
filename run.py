@@ -273,6 +273,7 @@ def start_like_followingai():
                     print("=" * 30)
                     time_sleep = int(time_sleep)
                     time.sleep(int(time_sleep))
+                    j.close()
         except:
             pass
 
@@ -340,7 +341,7 @@ def start_like_followersai():
                     print("=" * 30)
                     time_sleep = int(time_sleep)
                     time.sleep(time_sleep)
-
+                    j.close()
         except:
             pass
 
