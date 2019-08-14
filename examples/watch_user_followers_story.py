@@ -62,6 +62,10 @@ while True:
         # WATCH USERS STORIES
         if bot.watch_users_reels(liker_ids):
             bot.logger.info("Total stories viewed: %d" % bot.total["stories_viewed"])
+            stories_viewed = bot.total["stories_viewed"]
+            if stories_viewed == 500:
+                time.sleep(range(20, 40))
+                print("sleeping stories")
             block_usage = 0
 
         # CHOOSE RANDOM LIKER TO GRAB HIS LIKERS AND REPEAT
