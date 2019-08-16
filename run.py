@@ -11,7 +11,7 @@ import cv2
 import instagram_scraper
 import json
 import random
-
+import logging
 
 try:
     input = raw_input
@@ -22,13 +22,13 @@ COOKIES = {}
 app = Flask(__name__)
 bot = Bot(do_logout=True)
 
-
 parser = argparse.ArgumentParser(add_help=True)
 parser.add_argument('-u', type=str, help="username")
 parser.add_argument('-p', type=str, help="password")
 parser.add_argument('-proxy', type=str, help="proxy")
 args = parser.parse_args()
 username = str(args.u)
+
 
 # Check if user cookie exist
 bot.login(username=args.u, password=args.p, proxy=args.proxy, use_cookie=True)
@@ -264,6 +264,7 @@ def start_like_followingai():
 
                 if not detect:
                     print("no face detected")
+                    j.close()
                 else:
                 #    media_id = bot.get_media(display_url)
                     bot.api.like(media_id)
@@ -273,6 +274,7 @@ def start_like_followingai():
                     print("=" * 30)
                     time_sleep = int(time_sleep)
                     time.sleep(int(time_sleep))
+                    os.rmdir(pusername)
                     j.close()
         except:
             pass
@@ -303,22 +305,20 @@ def start_like_followersai():
     followers = bot.api.last_json["user"]["follower_count"]
     following = bot.api.last_json["user"]["following_count"]
     media_count = bot.api.last_json["user"]["media_count"]
-
     number_last_photos = 1
     following_username = request.form['following_username']
     time_sleep = request.form['time_sleep']
-
     user_id = bot.get_user_id_from_username(following_username)
     following = bot.get_user_followers(user_id)
     for user in following:
         pusername = bot.get_username_from_user_id(user)
         imgScraper = instagram_scraper.InstagramScraper(usernames=[pusername],
-                                            maximum=number_last_photos,
-                                            media_metadata=True, latest=True,
-                                            media_types=['image'])
+                                                        maximum=number_last_photos,
+                                                        media_metadata=True,
+                                                        latest=True,
+                                                        media_types=['image'])
         imgScraper.scrape()
-
-    # Open user json and if face is detected it will do command
+        # Open user json and if face is detected it will do command
         try:
             with open(pusername + '/' + pusername + '.json', 'r') as j:
                 json_data = json.load(j)
@@ -327,23 +327,30 @@ def start_like_followersai():
                 profile = (json_data["GraphImages"][0]["username"])
                 imgUrl = display_url.split('?')[0].split('/')[-1]
                 instapath = pusername + '/' + imgUrl
-                img = cv2.imread(instapath)
-                detector = MTCNN()
-                detect = detector.detect_faces(img)
+                try:
+                    img = cv2.imread(instapath)
+                    detector = MTCNN()
+                    detect = detector.detect_faces(img)
+                    bot.logger.info("Face Detected")
+                except Exception as e:
+                    bot.logger.info(e)
 
                 if not detect:
-                    print("no face detected")
+                    bot.logger.info("No Face Detected")
+                    j.close()
                 else:
                     bot.api.like(media_id)
-                    print("liked " + display_url + " by" + profile)
+                    bot.logger.info("liked " + display_url + " by" + profile + "\n")
                     x += 1
-                    print("liked " + str(x) + " images")
-                    print("=" * 30)
+                    bot.logger.info("liked " + str(x) + " images" + "\n")
+                    bot.logger.info("Sleeping")
                     time_sleep = int(time_sleep)
                     time.sleep(time_sleep)
                     j.close()
-        except:
-            pass
+        except Exception as ee:
+            bot.logger.info(ee)
+
+
 
     return render_template("like_followersai.html", username=username,
                        profile_pic=profile_pic, followers=followers,
