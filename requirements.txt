@@ -1,6 +1,6 @@
 instabot
 flask
-tensorflow==1.5
+tensorflow
 mtcnn
 opencv-python
 instagram-scraper
