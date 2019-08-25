@@ -15,6 +15,22 @@ Unlike other bots, Instabotai does not require Selenium or a WebDriver. Instead,
 
 ![image](https://i.imgur.com/yv9eAyv.png)
 
+### Installation with PIP
+Install `instabotai` with:
+``` bash
+pip install -U instabotai
+```
+Run `instabotai` with:
+``` bash
+instabotai -u yourusername -p password"
+```
+
+### Installation with Docker
+``` bash
+docker pull reliefs/instabotai
+
+docker run reliefs/instabotai -u username -p password"
+```
 ## Features
 * Follow User Followers
 * Follow User Following
@@ -27,11 +43,6 @@ Unlike other bots, Instabotai does not require Selenium or a WebDriver. Instead,
 * Like all image comments
 * Multibot
 * GUI
-
-## To Install:
-git clone https://github.com/instabotai/webgui.git
-
-pip install -r requirements.txt
 
 ## Run: 
 python run.py -u yourusername -p yourpassword
