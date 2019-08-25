@@ -3,4 +3,3 @@ flask
 tensorflow==2.0.0rc0
 mtcnn
 opencv-python
-instagram-scraper
