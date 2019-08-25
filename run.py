@@ -8,7 +8,6 @@ import random
 import sys
 from mtcnn.mtcnn import MTCNN
 import cv2
-import instagram_scraper
 import json
 import random
 import logging
@@ -32,6 +31,31 @@ username = str(args.u)
 
 # Check if user cookie exist
 bot.login(username=args.u, password=args.p, proxy=args.proxy, use_cookie=True)
+
+
+def face_detection(username):
+    medias = bot.get_total_user_medias(username)
+    for media in medias:
+        try:
+            bot.logger.info(media)
+            path = bot.download_photo(media, folder=username)
+            img = cv2.imread(path)
+            detector = MTCNN()
+            detect = detector.detect_faces(img)
+            print(detect)
+        expect Exception as e:
+            bot.logger.info(e)
+
+        if not detect:
+            bot.logger.info("no face detected")
+
+        else:
+            bot.logger.info("there was a face detected")
+            bot.api.like(media)
+            display_url = bot.get_link_from_media_id(media)
+            bot.logger.info("liked " + display_url + " by " + username)
+
+
 
 def get_followers():
     pass
@@ -241,44 +265,11 @@ def start_like_followingai():
     time_sleep = request.form['time_sleep']
     user_id = bot.get_user_id_from_username(following_username)
     following = bot.get_user_following(user_id)
+
     for user in following:
         pusername = bot.get_username_from_user_id(user)
-        imgScraper = instagram_scraper.InstagramScraper(usernames=[pusername],
-                                            maximum=number_last_photos,
-                                            media_metadata=True, latest=True,
-                                            media_types=['image'])
-        imgScraper.scrape()
-
-    # Open user json and if face is detected it will do command
-        try:
-            with open(pusername + '/' + pusername + '.json', 'r') as j:
-                json_data = json.load(j)
-                display_url = (json_data["GraphImages"][0]["display_url"])
-                media_id = (json_data["GraphImages"][0]["id"])
-                profile = (json_data["GraphImages"][0]["username"])
-                imgUrl = display_url.split('?')[0].split('/')[-1]
-                instapath = pusername + '/' + imgUrl
-                img = cv2.imread(instapath)
-                detector = MTCNN()
-                detect = detector.detect_faces(img)
-
-                if not detect:
-                    print("no face detected")
-                    j.close()
-                else:
-                #    media_id = bot.get_media(display_url)
-                    bot.api.like(media_id)
-                    print("liked " + display_url + " by " + profile)
-                    x += 1
-                    print("liked " + str(x) + " images")
-                    print("=" * 30)
-                    time_sleep = int(time_sleep)
-                    time.sleep(int(time_sleep))
-                    os.rmdir(pusername)
-                    j.close()
-        except:
-            pass
-
+        face_detection(pusername)
+        time.sleep(int(time_sleep))
     return render_template("like_followingai.html", username=username,
                        profile_pic=profile_pic, followers=followers,
                        following=following, media_count=media_count);
@@ -312,46 +303,8 @@ def start_like_followersai():
     following = bot.get_user_followers(user_id)
     for user in following:
         pusername = bot.get_username_from_user_id(user)
-        imgScraper = instagram_scraper.InstagramScraper(usernames=[pusername],
-                                                        maximum=number_last_photos,
-                                                        media_metadata=True,
-                                                        latest=True,
-                                                        media_types=['image'])
-        imgScraper.scrape()
-        # Open user json and if face is detected it will do command
-        try:
-            with open(pusername + '/' + pusername + '.json', 'r') as j:
-                json_data = json.load(j)
-                display_url = (json_data["GraphImages"][0]["display_url"])
-                media_id = (json_data["GraphImages"][0]["id"])
-                profile = (json_data["GraphImages"][0]["username"])
-                imgUrl = display_url.split('?')[0].split('/')[-1]
-                instapath = pusername + '/' + imgUrl
-                try:
-                    img = cv2.imread(instapath)
-                    detector = MTCNN()
-                    detect = detector.detect_faces(img)
-                    bot.logger.info("Face Detected")
-                except Exception as e:
-                    bot.logger.info(e)
-
-                if not detect:
-                    bot.logger.info("No Face Detected")
-                    j.close()
-                else:
-                    bot.api.like(media_id)
-                    bot.logger.info("liked " + display_url + " by" + profile + "\n")
-                    x += 1
-                    bot.logger.info("liked " + str(x) + " images" + "\n")
-                    bot.logger.info("Sleeping")
-                    time_sleep = int(time_sleep)
-                    time.sleep(time_sleep)
-                    j.close()
-        except Exception as ee:
-            bot.logger.info(ee)
-
-
-
+        face_detection(pusername)
+        time.sleep(int(time_sleep))
     return render_template("like_followersai.html", username=username,
                        profile_pic=profile_pic, followers=followers,
                        following=following, media_count=media_count);
