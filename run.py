@@ -43,7 +43,8 @@ def face_detection(username):
             detector = MTCNN()
             detect = detector.detect_faces(img)
             print(detect)
-        expect Exception as e:
+
+        except Exception as e:
             bot.logger.info(e)
 
         if not detect:
