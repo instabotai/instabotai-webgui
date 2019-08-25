@@ -34,28 +34,34 @@ bot.login(username=args.u, password=args.p, proxy=args.proxy, use_cookie=True)
 
 
 def face_detection(username):
-    medias = bot.get_total_user_medias(username)
+    x = 0
+    ''' Get user media and scan it for a face'''
+#    medias = bot.get_total_user_medias(username)
+    user_id = bot.get_user_id_from_username(username)
+    medias = bot.get_user_medias(user_id, filtration=False)
     for media in medias:
-        try:
-            bot.logger.info(media)
-            path = bot.download_photo(media, folder=username)
-            img = cv2.imread(path)
-            detector = MTCNN()
-            detect = detector.detect_faces(img)
-            print(detect)
+        while x < 2:
+            try:
+                bot.logger.info(media)
+                path = bot.download_photo(media, folder=username)
+                img = cv2.imread(path)
+                detector = MTCNN()
+                detect = detector.detect_faces(img)
+                print(detect)
 
-        except Exception as e:
-            bot.logger.info(e)
+            except Exception as e:
+                bot.logger.info(e)
 
-        if not detect:
-            bot.logger.info("no face detected")
+            if not detect:
+                bot.logger.info("no face detected")
+                x += 1
 
-        else:
-            bot.logger.info("there was a face detected")
-            bot.api.like(media)
-            display_url = bot.get_link_from_media_id(media)
-            bot.logger.info("liked " + display_url + " by " + username)
-
+            else:
+                bot.logger.info("there was a face detected")
+                bot.api.like(media)
+                display_url = bot.get_link_from_media_id(media)
+                bot.logger.info("liked " + display_url + " by " + username)
+                x += 1
 
 
 def get_followers():
